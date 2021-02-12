@@ -6,44 +6,42 @@ const Body = Matter.Body;
 
 var engine, world;
 
-function preload()
-{
-	
-}
-
 function setup() {
-	createCanvas(800, 700);
+	createCanvas(600, 600);
 
 
 	engine = Engine.create();
 	world = engine.world;
 
-	//Create the Bodies Here.
-
-
-	Engine.run(engine);
+	//Create the Bodies Here
 
 	paper = new Paper();
-	ground = new Ground();
+	ground = new Ground(300,570,600,20);
 
-	Lside = new Dustbin(580,650,10,100);
-	Rside = new Dustbin (780,650,10,100);
-	Bbin = new Dustbin(680,650,200,10);
-  
+	Lside = new Dustbin(480,520,10,100);
+	Rside = new Dustbin (580,520,10,100);
+	Bbin = new Dustbin(525,565,100,10);
+	Engine.run(engine);
 }
 
 
 function draw() {
   rectMode(CENTER);
-  background(0);
-  
-  drawSprites();
+  background("black");
+  Engine.update(engine);
 
+  paper.display();
   ground.display();
 
   Lside.display();
   Rside.display();
   Bbin.display();
+}
+
+function keyPressed(){
+	if(keyCode === UP_ARROW){
+		Matter.Body.applyForce(paper.body,paper.body.position,{x:25,y:-35});
+	}
 }
 
 
